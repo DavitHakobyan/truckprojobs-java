@@ -1,5 +1,5 @@
 package com.smartit.truckprojobs.config;
-
+/*
 import com.google.firebase.auth.FirebaseAuth;
 import com.smartit.truckprojobs.security.AuthorizationFilter;
 import lombok.extern.slf4j.Slf4j;
@@ -54,3 +54,5 @@ public class SecurityConfig {
         return http.build();
     }
 }
+
+ */

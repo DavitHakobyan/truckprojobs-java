@@ -38,7 +38,8 @@ public class CustomClaimsController {
             log.info("UID: {}", uid);
 
             // Call the service to add custom claims
-            String response = customClaimsService.addCustomClaims(uid, customClaimsRequest);
+//            String response = customClaimsService.addCustomClaims(uid, customClaimsRequest);
+            String response = "response"; // Placeholder for actual response
             return ResponseEntity.ok().body(response);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
