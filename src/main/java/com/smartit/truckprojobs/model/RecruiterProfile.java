@@ -6,7 +6,7 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name = "recruiter profile")
-public class RecruiterProfile implements CurrentUserProfile {
+public class RecruiterProfile {
 
     @Id
     private Long userAccountId;
@@ -28,15 +28,13 @@ public class RecruiterProfile implements CurrentUserProfile {
 
     private String company;
 
-    @Column(nullable = true, length = 100)
+    @Column(length = 100)
     private String profilePhoto;
 
     public RecruiterProfile() {
     }
 
-    public RecruiterProfile(Long userAccountId, Users userId, String firstName,
-                            String lastName, String city, String state, String country,
-                            String company, String profilePhoto) {
+    public RecruiterProfile(Long userAccountId, Users userId, String firstName, String lastName, String city, String state, String country, String company, String profilePhoto) {
         this.userAccountId = userAccountId;
         this.userId = userId;
         this.firstName = firstName;
@@ -54,22 +52,12 @@ public class RecruiterProfile implements CurrentUserProfile {
 
     @Transient
     public String getPhotosImagePath() {
-        if (profilePhoto == null) return null;
-        return "/photos/recruiter/" + userAccountId + "/" + profilePhoto;
+        if (profilePhoto == null || userAccountId == null) return null;
+        return "/photos/candidate/" + userAccountId + "/" + profilePhoto;
     }
 
     @Override
     public String toString() {
-        return "RecruiterProfile{" +
-                "userAccountId=" + userAccountId +
-                ", userId=" + userId +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", city='" + city + '\'' +
-                ", state='" + state + '\'' +
-                ", country='" + country + '\'' +
-                ", company='" + company + '\'' +
-                ", profilePhoto='" + profilePhoto + '\'' +
-                '}';
+        return "RecruiterProfile{" + "userAccountId=" + userAccountId + ", userId=" + userId + ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", city='" + city + '\'' + ", state='" + state + '\'' + ", country='" + country + '\'' + ", company='" + company + '\'' + ", profilePhoto='" + profilePhoto + '\'' + '}';
     }
 }

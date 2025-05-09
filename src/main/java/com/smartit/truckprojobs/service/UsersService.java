@@ -1,7 +1,6 @@
 package com.smartit.truckprojobs.service;
 
 import com.smartit.truckprojobs.model.CandidateProfile;
-import com.smartit.truckprojobs.model.CurrentUserProfile;
 import com.smartit.truckprojobs.model.RecruiterProfile;
 import com.smartit.truckprojobs.model.Users;
 import com.smartit.truckprojobs.repository.CandidateProfileRepository;
@@ -71,7 +70,7 @@ public class UsersService {
         return savedUser;
     }
 
-    public CurrentUserProfile getCurrentUserProfile() {
+    public Object getCurrentUserProfile() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication instanceof AnonymousAuthenticationToken) {
             // Get the current user's username
