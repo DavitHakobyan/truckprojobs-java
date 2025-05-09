@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: truck-pro-jobs
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:postgresql://localhost:5432/truckprojobs
+    password: postgres
+    username: postgres
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show_sql: true
+    properties:
+      hibernate.jdbc.lob.non_contextual_creation: true
+
+
+### Actuator ###
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+
+stripe:
+  api:
+    key: your-stripe-secret-key
+  webhook:
+    secret: your-stripe-webhook-secret
