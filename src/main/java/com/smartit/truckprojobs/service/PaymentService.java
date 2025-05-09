@@ -7,7 +7,7 @@ import com.stripe.net.Webhook;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
+//import javax.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,10 +23,10 @@ public class PaymentService {
     @Value("${stripe.webhook.secret}")
     private String stripeWebhookSecret;
 
-    @PostConstruct
-    public void init() {
-        Stripe.apiKey = stripeApiKey;
-    }
+//    @PostConstruct
+//    public void init() {
+//        Stripe.apiKey = stripeApiKey;
+//    }
 
     public PaymentService() {
         // Default constructor

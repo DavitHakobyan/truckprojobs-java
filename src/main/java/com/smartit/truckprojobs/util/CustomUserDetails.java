@@ -12,7 +12,7 @@ import java.util.List;
 
 public class CustomUserDetails implements UserDetails {
 
-    private Users user;
+    private final Users user;
 
     public CustomUserDetails(Users user) {
         this.user = user;
@@ -21,9 +21,10 @@ public class CustomUserDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         UsersType usersType = user.getUserTypeId();
-        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(usersType.getUserTypeName()));
-        return authorities;
+        if (usersType == null || usersType.getUserTypeName() == null) {
+            return List.of(); // Return an empty list if user type or name is null
+        }
+        return List.of(new SimpleGrantedAuthority(usersType.getUserTypeName()));
     }
 
     @Override
@@ -36,23 +37,4 @@ public class CustomUserDetails implements UserDetails {
         return user.getEmail();
     }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
 }

@@ -1,5 +1,5 @@
 package com.smartit.truckprojobs.config;
-
+/*
 import com.google.firebase.auth.FirebaseAuth;
 import com.smartit.truckprojobs.security.AuthorizationFilter;
 import lombok.extern.slf4j.Slf4j;
@@ -46,7 +46,6 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers(ALLOWED_PATHS).permitAll()
-                        .requestMatchers("/api/secure").authenticated()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(new AuthorizationFilter(firebaseAuth, ALLOWED_PATHS), UsernamePasswordAuthenticationFilter.class);
@@ -54,3 +53,5 @@ public class SecurityConfig {
         return http.build();
     }
 }
+
+ */

@@ -24,30 +24,31 @@ public class UsersController {
     private final UsersService usersService;
     private final UsersTypeService usersTypeService;
 
-    public UsersController(UsersService usersService, UsersTypeService usersTypeService) {
+    public UsersController(UsersService usersService,
+                           UsersTypeService usersTypeService) {
         this.usersService = usersService;
         this.usersTypeService = usersTypeService;
     }
 
-    @GetMapping
-    public List<Users> getAllUsers() {
-        return usersService.getAllUsers();
-    }
-
-    @GetMapping("/{id}")
-    public Optional<Users> getUserById(@PathVariable Long id) {
-        return usersService.getUserById(id);
-    }
+//    @GetMapping
+//    public List<Users> getAllUsers() {
+//        return usersService.getAllUsers();
+//    }
+//
+//    @GetMapping("/{id}")
+//    public Optional<Users> getUserById(@PathVariable Long id) {
+//        return usersService.getUserById(id);
+//    }
 
     @PostMapping
     public Users createUser(@RequestBody Users user) {
         return usersService.saveUser(user);
     }
-
-    @DeleteMapping("/{id}")
-    public void deleteUserById(@PathVariable Long id) {
-        usersService.deleteUserById(id);
-    }
+//
+//    @DeleteMapping("/{id}")
+//    public void deleteUserById(@PathVariable Long id) {
+//        usersService.deleteUserById(id);
+//    }
 
 
     @GetMapping("/register")
@@ -59,15 +60,16 @@ public class UsersController {
     }
 
     @PostMapping("/register/new")
-    public String userRegistration(@Valid Users users, Model model) {
+//    public String userRegistration(@Valid Users users, Model model) {
+    public String userRegistration(@RequestBody Users users) { // , Model model) {
         Optional<Users> optionalUsers = usersService.getUserByEmail(users.getEmail());
-        if (optionalUsers.isPresent()) {
-            model.addAttribute("error", "Email already registered,try to login or register with other email.");
-            List<UsersType> usersTypes = usersTypeService.getAll();
-            model.addAttribute("getAllTypes", usersTypes);
-            model.addAttribute("user", new Users());
-            return "register";
-        }
+//        if (optionalUsers.isPresent()) {
+//            model.addAttribute("error", "Email already registered,try to login or register with other email.");
+//            List<UsersType> usersTypes = usersTypeService.getAll();
+//            model.addAttribute("getAllTypes", usersTypes);
+//            model.addAttribute("user", new Users());
+//            return "register";
+//        }
         usersService.addNew(users);
         return "redirect:/dashboard/";
     }
