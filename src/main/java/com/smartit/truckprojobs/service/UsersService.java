@@ -1,6 +1,7 @@
 package com.smartit.truckprojobs.service;
 
 import com.smartit.truckprojobs.model.CandidateProfile;
+import com.smartit.truckprojobs.model.CurrentUserProfile;
 import com.smartit.truckprojobs.model.RecruiterProfile;
 import com.smartit.truckprojobs.model.Users;
 import com.smartit.truckprojobs.repository.CandidateProfileRepository;
@@ -70,24 +71,20 @@ public class UsersService {
         return savedUser;
     }
 
-    public Object getCurrentUserProfile() {
-
+    public CurrentUserProfile getCurrentUserProfile() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        if (!(authentication instanceof AnonymousAuthenticationToken)) {
-            String username = authentication.getName();
-            Users users = usersRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("Could not found " + "user"));
-            long userId = users.getUserId();
-            if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("Recruiter"))) {
-                RecruiterProfile recruiterProfile = recruiterProfileRepository.findById(userId).orElse(new RecruiterProfile());
-                return recruiterProfile;
-            } else {
-                CandidateProfile jobSeekerProfile = candidateProfileRepository.findById(userId).orElse(new CandidateProfile());
-                return jobSeekerProfile;
-            }
+        if (authentication instanceof AnonymousAuthenticationToken) {
+            // Get the current user's username
+            return null;
         }
 
-        return null;
+        String username = authentication.getName();
+        Users users = usersRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("Could not found " + "user"));
+        long userId = users.getUserId();
+        if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("Recruiter"))) {
+            return recruiterProfileRepository.findById(userId).orElse(new RecruiterProfile());
+        }
+        return candidateProfileRepository.findById(userId).orElse(new CandidateProfile());
     }
 
     public Optional<Users> getUserByEmail(String email) {

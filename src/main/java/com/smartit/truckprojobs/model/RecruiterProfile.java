@@ -6,7 +6,7 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name = "recruiter profile")
-public class RecruiterProfile {
+public class RecruiterProfile implements CurrentUserProfile {
 
     @Id
     private Long userAccountId;

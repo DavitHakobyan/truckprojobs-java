@@ -9,7 +9,7 @@ import java.util.List;
 @Entity
 @Data
 @Table(name = "candidate_profile")
-public class CandidateProfile {
+public class CandidateProfile implements CurrentUserProfile {
 
     @Id
     private Long userAccountId;
