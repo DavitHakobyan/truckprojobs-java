@@ -3,11 +3,12 @@ package com.smartit.truckprojobs.controller;
 import com.smartit.truckprojobs.model.JobPost;
 import com.smartit.truckprojobs.service.JobPostService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/api/jobposts")
 public class JobPostController {
 
