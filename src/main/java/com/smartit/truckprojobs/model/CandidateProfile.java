@@ -2,14 +2,13 @@ package com.smartit.truckprojobs.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
 
 import java.util.List;
 
 @Entity
 @Data
 @Table(name = "candidate_profile")
-public class CandidateProfile implements CurrentUserProfile {
+public class CandidateProfile {
 
     @Id
     private Long userAccountId;
@@ -56,6 +55,12 @@ public class CandidateProfile implements CurrentUserProfile {
         this.skills = skills;
     }
 
+    @Transient
+    public String getPhotosImagePath() {
+        if (profilePhoto == null || userAccountId == null) return null;
+        return "/photos/candidate/" + userAccountId + "/" + profilePhoto;
+    }
+
     @Override
     public String toString() {
         return "JobSeekerProfile{" +
@@ -70,7 +75,6 @@ public class CandidateProfile implements CurrentUserProfile {
                 ", employmentType='" + employmentType + '\'' +
                 ", resume='" + resume + '\'' +
                 ", profilePhoto='" + profilePhoto + '\'' +
-                ", skills=" + skills +
                 '}';
     }
 }

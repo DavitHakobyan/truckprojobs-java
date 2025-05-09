@@ -4,12 +4,13 @@ import com.stripe.exception.StripeException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import com.smartit.truckprojobs.service.PaymentService;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.Map;
 
-@RestController
+@Controller
 @RequestMapping("/api/secure/stripe")
 public class PaymentController {
 
