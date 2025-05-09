@@ -115,3 +115,15 @@ CREATE TABLE job_post_activity
     CONSTRAINT FK44003mnvj29aiijhsc6ftsgxe FOREIGN KEY (job_location_id) REFERENCES job_location (id),
     CONSTRAINT FK62yqqbypsq2ik34ngtlw4m9k3 FOREIGN KEY (posted_by_id) REFERENCES users (user_id)
 );
+
+CREATE TABLE candidate_apply
+(
+    id           SERIAL PRIMARY KEY,
+    apply_date   TIMESTAMP(6),
+    cover_letter VARCHAR(255),
+    job          INT,
+    user_id      INT,
+    UNIQUE (user_id, job),
+    CONSTRAINT FKmfhx9q4uclbb74vm49lv9dmf4 FOREIGN KEY (job) REFERENCES job_post_activity (job_post_id),
+    CONSTRAINT FKs9fftlyxws2ak05q053vi57qv FOREIGN KEY (user_id) REFERENCES public.candidate_profile (user_account_id)
+);
