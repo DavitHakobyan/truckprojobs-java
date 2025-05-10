@@ -100,6 +100,7 @@ public class CandidateApplyController {
             } else {
                 throw new RuntimeException("User not found");
             }
+
             candidateApplyService.addNew(candidateApply);
         }
 
