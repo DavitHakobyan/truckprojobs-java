@@ -1,23 +1,27 @@
 package com.smartit.truckprojobs.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 
 @Entity
-@Table(uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"userId", "job"})
-})
+@Table(name = "candidate_save", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "job"})})
 public class CandidateSave implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Setter
+    @Getter
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "userId", referencedColumnName = "user_account_id")
+    @JoinColumn(name = "user_id", referencedColumnName = "user_account_id")
     private CandidateProfile userId;
 
+    @Setter
+    @Getter
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "job", referencedColumnName = "jobPostId")
     private JobPostActivity job;
@@ -38,22 +42,6 @@ public class CandidateSave implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public CandidateProfile getUserId() {
-        return userId;
-    }
-
-    public void setUserId(CandidateProfile userId) {
-        this.userId = userId;
-    }
-
-    public JobPostActivity getJob() {
-        return job;
-    }
-
-    public void setJob(JobPostActivity job) {
-        this.job = job;
     }
 
     @Override

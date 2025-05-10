@@ -34,6 +34,13 @@ dependencies {
     // spring security
     implementation 'org.springframework.boot:spring-boot-starter-security'
 
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation "org.thymeleaf.extras:thymeleaf-extras-springsecurity6"
+    implementation "org.webjars:bootstrap:5.3.5"
+    implementation "org.webjars:jquery:3.6.4"
+    implementation "org.webjars:webjars-locator:0.52"
+    implementation "org.webjars:font-awesome:6.7.2"
+
     // spring stripe dependencies
     implementation 'com.stripe:stripe-java:20.136.0'
 
