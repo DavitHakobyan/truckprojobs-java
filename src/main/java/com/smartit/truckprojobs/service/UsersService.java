@@ -92,16 +92,17 @@ public class UsersService {
 
     public Users getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (!(authentication instanceof AnonymousAuthenticationToken)) {
-            String username = authentication.getName();
-            return usersRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("Could not found " + "user"));
+        if (authentication instanceof AnonymousAuthenticationToken) {
+            return null;
         }
-        return null;
+        String username = authentication.getName();
+        return usersRepository.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Could not found " + "user"));
     }
 
     public Users findByEmail(String currentUsername) {
-        return usersRepository.findByEmail(currentUsername).orElseThrow(() -> new UsernameNotFoundException("User not " +
-                "found"));
+        return usersRepository.findByEmail(currentUsername)
+                .orElseThrow(() -> new UsernameNotFoundException("User not " +
+                        "found"));
     }
-
 }

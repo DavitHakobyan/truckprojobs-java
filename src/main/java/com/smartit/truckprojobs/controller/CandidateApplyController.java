@@ -22,21 +22,21 @@ public class CandidateApplyController {
 
     private final JobPostActivityService jobPostActivityService;
     private final UsersService usersService;
-    private final CandidateApplyService jobSeekerApplyService;
-    private final CandidateSaveService jobSeekerSaveService;
+    private final CandidateApplyService candidateApplyService;
+    private final CandidateSaveService candidateSaveService;
     private final RecruiterProfileService recruiterProfileService;
     private final CandidateProfileService candidateProfileService;
 
     public CandidateApplyController(JobPostActivityService jobPostActivityService,
                                     UsersService usersService,
-                                    CandidateApplyService jobSeekerApplyService,
-                                    CandidateSaveService jobSeekerSaveService,
+                                    CandidateApplyService candidateApplyService,
+                                    CandidateSaveService candidateSaveService,
                                     RecruiterProfileService recruiterProfileService,
                                     CandidateProfileService candidateProfileService) {
         this.jobPostActivityService = jobPostActivityService;
         this.usersService = usersService;
-        this.jobSeekerApplyService = jobSeekerApplyService;
-        this.jobSeekerSaveService = jobSeekerSaveService;
+        this.candidateApplyService = candidateApplyService;
+        this.candidateSaveService = candidateSaveService;
         this.recruiterProfileService = recruiterProfileService;
         this.candidateProfileService = candidateProfileService;
     }
@@ -44,8 +44,8 @@ public class CandidateApplyController {
     @GetMapping("job-details-apply/{id}")
     public String display(@PathVariable("id") int id, Model model) {
         JobPostActivity jobDetails = jobPostActivityService.getOne(id);
-        List<CandidateApply> jobSeekerApplyList = jobSeekerApplyService.getJobCandidates(jobDetails);
-        List<CandidateSave> jobSeekerSaveList = jobSeekerSaveService.getJobCandidates(jobDetails);
+        List<CandidateApply> jobSeekerApplyList = candidateApplyService.getJobCandidates(jobDetails);
+        List<CandidateSave> jobSeekerSaveList = candidateSaveService.getJobCandidates(jobDetails);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("Recruiter"))) {
@@ -85,7 +85,7 @@ public class CandidateApplyController {
     }
 
     @PostMapping("job-details/apply/{id}")
-    public String apply(@PathVariable("id") int id, CandidateApply jobSeekerApply) {
+    public String apply(@PathVariable("id") int id, CandidateApply candidateApply) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUsername = authentication.getName();
@@ -93,14 +93,14 @@ public class CandidateApplyController {
             Optional<CandidateProfile> seekerProfile = candidateProfileService.getOne(user.getUserId());
             JobPostActivity jobPostActivity = jobPostActivityService.getOne(id);
             if (seekerProfile.isPresent() && jobPostActivity != null) {
-                jobSeekerApply = new CandidateApply();
-                jobSeekerApply.setUserId(seekerProfile.get());
-                jobSeekerApply.setJob(jobPostActivity);
-                jobSeekerApply.setApplyDate(new Date());
+                candidateApply = new CandidateApply();
+                candidateApply.setUserId(seekerProfile.get());
+                candidateApply.setJob(jobPostActivity);
+                candidateApply.setApplyDate(new Date());
             } else {
                 throw new RuntimeException("User not found");
             }
-            jobSeekerApplyService.addNew(jobSeekerApply);
+            candidateApplyService.addNew(candidateApply);
         }
 
         return "redirect:/dashboard/";
