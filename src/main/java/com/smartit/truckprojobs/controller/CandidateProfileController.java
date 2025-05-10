@@ -130,7 +130,7 @@ public class CandidateProfileController {
         Resource resource = null;
 
         try {
-            resource = downloadUtil.getFileAsResourse("photos/candidate/" + userId, fileName);
+            resource = downloadUtil.getFileAsResource("photos/candidate/" + userId, fileName);
         } catch (IOException e) {
             return ResponseEntity.badRequest().build();
         }

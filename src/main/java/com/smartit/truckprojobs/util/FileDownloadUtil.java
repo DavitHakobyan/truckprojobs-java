@@ -12,7 +12,7 @@ public class FileDownloadUtil {
 
     private Path foundfile;
 
-    public Resource getFileAsResourse(String downloadDir, String fileName) throws IOException {
+    public Resource getFileAsResource(String downloadDir, String fileName) throws IOException {
 
         Path path = Paths.get(downloadDir);
         Files.list(path).forEach(file -> {
