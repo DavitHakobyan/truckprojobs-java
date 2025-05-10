@@ -37,10 +37,8 @@ public class JobPostActivityController {
         this.candidateSaveService = candidateSaveService;
     }
 
-
     @GetMapping("/dashboard/")
-    public String searchJobs(Model model,
-                             @RequestParam(value = "job", required = false) String job,
+    public String searchJobs(@RequestParam(value = "job", required = false) String job,
                              @RequestParam(value = "location", required = false) String location,
                              @RequestParam(value = "partTime", required = false) String partTime,
                              @RequestParam(value = "fullTime", required = false) String fullTime,
@@ -50,9 +48,8 @@ public class JobPostActivityController {
                              @RequestParam(value = "partialRemote", required = false) String partialRemote,
                              @RequestParam(value = "today", required = false) boolean today,
                              @RequestParam(value = "days7", required = false) boolean days7,
-                             @RequestParam(value = "days30", required = false) boolean days30
-
-    ) {
+                             @RequestParam(value = "days30", required = false) boolean days30,
+                             Model model) {
 
         model.addAttribute("partTime", Objects.equals(partTime, "Part-Time"));
         model.addAttribute("fullTime", Objects.equals(partTime, "Full-Time"));
