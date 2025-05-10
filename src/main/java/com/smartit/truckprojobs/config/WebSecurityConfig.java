@@ -37,16 +37,16 @@ public class WebSecurityConfig {
                         .requestMatchers(publicUrl).permitAll()
                         .anyRequest().authenticated()
                 )
-//                .formLogin(form -> form
-//                        .loginPage("/login").permitAll()
-//                        .successHandler(customAuthenticationSuccessHandler)
-//                )
-//                .logout(logout -> logout
-//                        .logoutUrl("/logout")
-//                        .logoutSuccessUrl("/")
-//                )
-                .cors(Customizer.withDefaults());
-//                .csrf(AbstractHttpConfigurer::disable);
+                .formLogin(form -> form
+                        .loginPage("/login").permitAll()
+                        .successHandler(customAuthenticationSuccessHandler)
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/")
+                )
+                .cors(Customizer.withDefaults())
+                .csrf(AbstractHttpConfigurer::disable);
 
         return http.build();
     }

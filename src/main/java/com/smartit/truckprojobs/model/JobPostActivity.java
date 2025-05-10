@@ -9,6 +9,7 @@ import java.util.Date;
 
 @Data
 @Entity
+@Table(name = "job_post_activity")
 public class JobPostActivity {
 
     @Id
@@ -16,15 +17,15 @@ public class JobPostActivity {
     private Long jobPostId;
 
     @ManyToOne
-    @JoinColumn(name = "postedById", referencedColumnName = "userId")
+    @JoinColumn(name = "posted_by_id", referencedColumnName = "userId")
     private Users postedById;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "jobLocationId", referencedColumnName = "Id")
+    @JoinColumn(name = "job_location_id", referencedColumnName = "Id")
     private JobLocation jobLocationId;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "jobCompanyId", referencedColumnName = "Id")
+    @JoinColumn(name = "job_company_id", referencedColumnName = "Id")
     private JobCompany jobCompanyId;
 
     @Transient
