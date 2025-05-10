@@ -1,6 +1,7 @@
 package com.smartit.truckprojobs.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -11,41 +12,34 @@ public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
-    private Long userId;
+    private long userId;
 
-    @Column(name = "email", unique = true)
+    @Column(unique = true)
     private String email;
 
-    @Column(name = "is_active")
-    private boolean active;
-
-    @Column(name = "password")
+    @NotEmpty
     private String password;
 
-    @Column(name = "registration_date")
+    private boolean isActive;
+
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private Date registrationDate;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_type_id", referencedColumnName = "user_type_id")
     private UsersType userTypeId;
 
-    // constructors
     public Users() {
     }
 
-    public Users(Long userId, String email, Boolean active, String password,
-                 Date registrationDate, UsersType userTypeId) {
+    public Users(int userId, String email, String password, boolean isActive, Date registrationDate, UsersType userTypeId) {
         this.userId = userId;
         this.email = email;
-        this.active = active;
         this.password = password;
+        this.isActive = isActive;
         this.registrationDate = registrationDate;
         this.userTypeId = userTypeId;
     }
-    // Getters and setters (optional)
-
 
     public long getUserId() {
         return userId;
@@ -71,20 +65,12 @@ public class Users {
         this.password = password;
     }
 
-//    public boolean isActive() {
-//        return isActive;
-//    }
-//
-//    public void setActive(boolean active) {
-//        isActive = active;
-//    }
-
     public boolean isActive() {
-        return active;
+        return isActive;
     }
 
     public void setActive(boolean active) {
-        this.active = active;
+        isActive = active;
     }
 
     public Date getRegistrationDate() {
@@ -103,14 +89,13 @@ public class Users {
         this.userTypeId = userTypeId;
     }
 
-
     @Override
     public String toString() {
         return "Users{" +
                 "userId=" + userId +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", isActive=" + active +
+                ", isActive=" + isActive +
                 ", registrationDate=" + registrationDate +
                 ", userTypeId=" + userTypeId +
                 '}';
